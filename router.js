@@ -35,9 +35,9 @@ exports.init = ( app ) => {
 
       const spawn = require('child_process').spawn;
 
-      console.log('Spawn: ', [`deploy:${process.env}`, `--flightplan`, `flightplan/${project}.js`]);
+      console.log('Spawn: ', [`deploy:${process.env.NODE_ENV}`, `--flightplan`, `flightplan/${project}.js`]);
 
-      const ls = spawn(`fly`, [`deploy:${process.env}`, `--flightplan`, `flightplan/${project}.js`]);
+      const ls = spawn(`fly`, [`deploy:${process.env.NODE_ENV}`, `--flightplan`, `flightplan/${project}.js`]);
 
       let msg = '';
 
