@@ -64,7 +64,13 @@ exports.init = ( app ) => {
 
       });
 
-    });
+    })
+      .catch(( err ) => {
+
+        console.log('Error: ', err);
+        res.status(400).send(err);
+
+      });
 
   });
 
