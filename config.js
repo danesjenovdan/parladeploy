@@ -1,5 +1,13 @@
-if ( process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'development' ) throw Error('Missing NODE_ENV');
+if ( process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'development' && process.env.NODE_ENV !== 'staging' ) throw Error('Missing NODE_ENV');
 
-const config = process.env.NODE_ENV === 'production' ? require('./config.prod') : require('./config.dev');
+let config;
+
+if(process.env.NODE_ENV === 'production'){
+  config = require('./config.prod');
+}else if(process.env.NODE_ENV === 'staging'){
+  config = require('./config.staging');
+}else{
+  config = require('./config.dev');
+}
 
 module.exports = config;
