@@ -9,7 +9,7 @@ exports.init = ( app ) => {
   /**
    * Health check route
    */
-  app.get('/', (req, res) => {
+  app.get('/', ( req, res ) => {
 
     console.log('OK');
     res.send('OK');
@@ -23,66 +23,47 @@ exports.init = ( app ) => {
    * @param {String} req.body.token
    * @param {String} req.body.env
    */
-  app.post('/deploy', ( req, res ) => {
+  app.post('/deploy/:project', ( req, res ) => {
 
-    const { projects, outputUrl, token, env = 'production' } = req.body;
+    const project = req.params.project;
+    console.log(req.body);
 
-    if ( !token || token !== '4EC48nHYVKqxSFdVfze4TgL9E33rrbjmGPCvkRec' ) {
-      return res.status(400).send('Wrong token');
-    }
+    return new Promise(( resolve, reject ) => {
 
-    if (env !== 'production' && env !== 'staging') {
-      return res.status(400).send('Wrong enviroment');
-    }
+      if ( DEPLOY.indexOf(project) < 0 ) return reject('Target does not exist');
 
-    return Promise.each(projects, ( project, i ) => {
+      const spawn = require('child_process').spawn;
+      const ls    = spawn(`fly`, [`deploy:${process.env}`, `--flightplan`, `flightplan/${project}.js`]);
 
-      return new Promise(( resolve, reject ) => {
+      let msg = '';
 
-        if(DEPLOY.indexOf(project) < 0) return reject('Target does not exist');
+      ls.stdout.on('data', data => {
+        msg += data;
+        // if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, data.toString());
+      });
 
-        const spawn = require('child_process').spawn;
-        const ls    = spawn(`fly`, [ `deploy:${env}`, `--flightplan`, `flightplan/${project}.js` ]);
+      ls.stderr.on('data', data => {
+        console.log(`stderr: ${data}`);
+      });
 
-        let msg = '';
+      ls.on('close', code => {
 
-        ls.stdout.on('data', data => {
-          msg += data;
-          if(outputUrl) notificationHelper.sendNotification(outputUrl, project, data.toString());
-        });
+        if ( code === 0 ) {
+          setTimeout(() => {
+            // if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, 'DEPLOYMENT COMPLETE');
+          }, 1000);
+          res.status(200).send(msg);
+        }
+        else {
+          // notificationHelper.sendNotification(project, msg, true);
+          res.status(400).send(msg);
+        }
 
-        ls.stderr.on('data', data => {
-          console.log(`stderr: ${data}`);
-        });
-
-        ls.on('close', code => {
-
-          console.log(code);
-
-          if ( code == 0 ) {
-            setTimeout(() => {
-              if(outputUrl) notificationHelper.sendNotification(outputUrl, project, 'DEPLOYMENT COMPLETE');
-            },1000);
-            res.status(200).send(msg);
-          }
-          else {
-            notificationHelper.sendNotification(project, msg, true);
-            res.status(400).send(msg);
-          }
-
-          resolve();
-
-        });
+        resolve();
 
       });
 
-    })
-      .catch((err) => {
-
-        console.log(err);
-        res.status(400).send(err);
-
-      });
+    });
 
   });
 
@@ -101,7 +82,7 @@ exports.init = ( app ) => {
       return res.status(400).send('Wrong token');
     }
 
-    if (env !== 'production' && env !== 'staging') {
+    if ( env !== 'production' && env !== 'staging' ) {
       return res.status(400).send('Wrong enviroment');
     }
 
@@ -109,16 +90,16 @@ exports.init = ( app ) => {
 
         return new Promise(( resolve, reject ) => {
 
-          if(REVERT.indexOf(project) < 0) return reject('Target does not exist');
+          if ( REVERT.indexOf(project) < 0 ) return reject('Target does not exist');
 
           const spawn = require('child_process').spawn;
-          const ls    = spawn(`fly`, [ `revert:${env}`, `--flightplan`, `flightplan/${project}.js` ]);
+          const ls    = spawn(`fly`, [`revert:${env}`, `--flightplan`, `flightplan/${project}.js`]);
 
           let msg = '';
 
           ls.stdout.on('data', data => {
             msg += data;
-            if(outputUrl) notificationHelper.sendNotification(outputUrl, project, data.toString());
+            if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, data.toString());
           });
 
           ls.stderr.on('data', data => {
@@ -129,8 +110,8 @@ exports.init = ( app ) => {
 
             if ( code == 0 ) {
               setTimeout(() => {
-                if(outputUrl) notificationHelper.sendNotification(outputUrl, project, 'DEPLOYMENT COMPLETE');
-              },1000);
+                if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, 'DEPLOYMENT COMPLETE');
+              }, 1000);
               res.status(200).send(msg);
             }
             else {
@@ -145,7 +126,7 @@ exports.init = ( app ) => {
         });
 
       })
-      .catch((err) => {
+      .catch(( err ) => {
 
         console.log(err);
         res.status(400).send(err);
@@ -169,7 +150,7 @@ exports.init = ( app ) => {
       return res.status(400).send('Wrong token');
     }
 
-    if (env !== 'production' && env !== 'staging') {
+    if ( env !== 'production' && env !== 'staging' ) {
       return res.status(400).send('Wrong enviroment');
     }
 
@@ -177,16 +158,16 @@ exports.init = ( app ) => {
 
         return new Promise(( resolve, reject ) => {
 
-          if(!STOP_PATH[project]) return reject('Target does not exist');
+          if ( !STOP_PATH[project] ) return reject('Target does not exist');
 
           const spawn = require('child_process').spawn;
-          const ls    = spawn(`fly`, [ `${env}:stop`, `--flightplan`, `flightplan/${project}.js` ]);
+          const ls    = spawn(`fly`, [`${env}:stop`, `--flightplan`, `flightplan/${project}.js`]);
 
           let msg = '';
 
           ls.stdout.on('data', data => {
             msg += data;
-            if(outputUrl) notificationHelper.sendNotification(outputUrl, project, data.toString());
+            if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, data.toString());
           });
 
           ls.stderr.on('data', data => {
@@ -197,8 +178,8 @@ exports.init = ( app ) => {
 
             if ( code == 0 ) {
               setTimeout(() => {
-                if(outputUrl) notificationHelper.sendNotification(outputUrl, project, 'DEPLOYMENT COMPLETE');
-              },1000);
+                if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, 'DEPLOYMENT COMPLETE');
+              }, 1000);
               res.status(200).send(msg);
             }
             else {
@@ -213,7 +194,7 @@ exports.init = ( app ) => {
         });
 
       })
-      .catch((err) => {
+      .catch(( err ) => {
 
         console.log(err);
         res.status(400).send(err);
