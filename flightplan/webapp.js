@@ -16,7 +16,6 @@ plan.target('staging', {
   env : 'staging'
 });
 
-
 plan.local(['deploy', 'default'], (local) => {
 
   /**
@@ -34,7 +33,7 @@ plan.local(['deploy', 'default'], (local) => {
    * Create fresh clone
    */
   local.log('Clone master to temp folder');
-  local.exec(`git clone git@realstash-webapp:realstash/realstash-webapp.git /home/centos/realstash/webapp-temp`);
+  local.exec(`git clone -b staging git@realstash-webapp:realstash/realstash-webapp.git /home/centos/realstash/webapp-temp`);
 
 });
 
@@ -85,6 +84,7 @@ plan.local(['deploy', 'default'], (local) => {
    */
   local.log('Finish deployment');
   local.exec(`mv /home/centos/realstash/webapp-temp /home/centos/realstash/webapp;`);
+  local.exec(`cd /home/centos/realstash/webapp; npm run run-server;`);
 
 });
 
