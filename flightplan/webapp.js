@@ -74,7 +74,7 @@ plan.local(['deploy', 'default'], (local) => {
    * Move original to rollback folder
    */
   local.log('Move original to rollback folder');
-  local.exec(`mkdir -p /home/centos/realstash/webapp; mv -R /home/centos/realstash/webapp /home/centos/realstash/webapp-rollback;`);
+  local.exec(`mkdir -p /home/centos/realstash/webapp; mv /home/centos/realstash/webapp /home/centos/realstash/webapp-rollback;`);
 
 });
 
