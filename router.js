@@ -26,7 +26,8 @@ exports.init = ( app ) => {
   app.post('/deploy/:project', ( req, res ) => {
 
     const project = req.params.project;
-    console.log(req.body);
+    console.log('Body: ', req.body);
+    console.log('Headers: ', req.headers);
 
     return new Promise(( resolve, reject ) => {
 
