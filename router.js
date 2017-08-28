@@ -43,6 +43,7 @@ exports.init = ( app ) => {
 
       ls.stdout.on('data', data => {
         msg += data;
+        console.log(data.toString());
         // if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, data.toString());
       });
 
