@@ -34,7 +34,10 @@ exports.init = ( app ) => {
       if ( DEPLOY.indexOf(project) < 0 ) return reject('Target does not exist');
 
       const spawn = require('child_process').spawn;
-      const ls    = spawn(`fly`, [`deploy:${process.env}`, `--flightplan`, `flightplan/${project}.js`]);
+
+      console.log('Spawn: ', [`deploy:${process.env}`, `--flightplan`, `flightplan/${project}.js`]);
+
+      const ls = spawn(`fly`, [`deploy:${process.env}`, `--flightplan`, `flightplan/${project}.js`]);
 
       let msg = '';
 
