@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended : true }));
 
-
 exports.init = () => {
 
   return new Promise(( resolve, reject ) => {
