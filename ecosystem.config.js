@@ -40,7 +40,7 @@ module.exports = {
       ref           : 'origin/master',
       repo          : 'git@parladeploy:danesjenovdan/parladeploy.git',
       path          : '/home/parladaddy/parladeploy',
-      //'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env staging'
+      'post-deploy' : 'npm install'
     },
     dev        : {
       user          : 'node',
