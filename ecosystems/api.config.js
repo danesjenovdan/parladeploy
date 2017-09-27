@@ -9,7 +9,7 @@ module.exports = {
 
     // First application
     {
-      name           : 'realstash-api',
+      name           : 'parlameter-api',
       script         : 'run.js',
       env            : {
         COMMON_VARIABLE : 'true'
@@ -32,7 +32,7 @@ module.exports = {
       user          : 'root',
       host          : 'localhost',
       ref           : 'origin/master',
-      repo          : 'git@realstash-api:realstash/realstash-api.git',
+      repo          : 'git@parlameter-api:parlameter/parlameter-api.git',
       path          : `${config.PROJECTS_DIR_PATH}/api`,
       'post-deploy' : `git submodule update --init --recursive && npm install && npm update && pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/ecosystems/api.config.js --env production`,
       env           : {
@@ -43,7 +43,7 @@ module.exports = {
       user          : 'root',
       host          : 'localhost',
       ref           : 'origin/staging',
-      repo          : 'git@realstash-api:realstash/realstash-api.git',
+      repo          : 'git@parlameter-api:parlameter/parlameter-api.git',
       path          : `${config.PROJECTS_DIR_PATH}/api`,
       'post-deploy' : `git submodule update --init --recursive && npm install && npm update && pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/ecosystems/api.config.js --env staging`,
       env           : {

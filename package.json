@@ -1,10 +1,12 @@
 {
-  "name": "realstash-deploy",
+  "name": "parlameter-deploy",
   "version": "1.0.0",
   "main": "run.js",
-  "license": "Realstash LLC.",
+  "license": "DJND",
   "scripts": {
-    "dev": "NODE_ENV=development supervisor run"
+    "dev": "NODE_ENV=development supervisor run",
+    "deploy:staging":"pm2 deploy production",
+    "deploy:production":"pm2 deploy staging"
   },
   "dependencies": {
     "bluebird": "3.5.0",
