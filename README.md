@@ -4,4 +4,5 @@
 
 ## Requirements
 
-Do this even though it's not [working](https://github.com/Unitech/pm2/issues/1887#issuecomment-327085935)
+- [Setup the .bashrc](https://github.com/Unitech/pm2/issues/1887#issuecomment-327085935)
+- [Setup the .bashrc part 2](https://github.com/Unitech/pm2/issues/1887#issuecomment-327085935)
