@@ -35,7 +35,7 @@ module.exports = {
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
     },
     staging:{
-      user          : 'root',
+      user          : 'parladaddy',
       host          : 'knedl.si',
       ref           : 'origin/master',
       repo          : 'git@parladeploy:danesjenovdan/parladeploy.git',
