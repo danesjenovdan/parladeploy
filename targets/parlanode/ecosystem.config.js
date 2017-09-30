@@ -41,7 +41,7 @@ module.exports = {
     },
     staging    : {
       user          : 'parladaddy',
-      host          : 'localhost',
+      host          : 'knedl.si',
       ref           : 'origin/staging',
       repo          : 'git@parlanode:danesjenovdan/parlanode.git',
       path          : `${config.PROJECTS_DIR_PATH}/parlanode`,
