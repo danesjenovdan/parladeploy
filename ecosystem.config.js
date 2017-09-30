@@ -15,7 +15,9 @@ module.exports = {
         NODE_ENV : 'production'
       },
       env_staging    : {
-        NODE_ENV : 'staging'
+        NODE_ENV : 'staging',
+        MONGO_USERNAME : process.env.MONGO_USERNAME,
+        MONGO_PASSWORD : process.env.MONGO_PASSWORD,
       }
 
     }
@@ -34,13 +36,17 @@ module.exports = {
       path          : '/var/www/production',
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
     },
-    staging:{
+    staging    : {
       user          : 'parladaddy',
       host          : 'knedl.si',
       ref           : 'origin/master',
       repo          : 'git@parladeploy:danesjenovdan/parladeploy.git',
       path          : '/home/parladaddy/parladeploy',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env staging'
+      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env staging',
+      env           : {
+        MONGO_USERNAME : process.env.MONGO_USERNAME,
+        MONGO_PASSWORD : process.env.MONGO_PASSWORD,
+      }
     },
     dev        : {
       user          : 'node',
