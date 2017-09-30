@@ -23,6 +23,9 @@ plan.local(['deploy', 'default'], ( local ) => {
 
   const enviroment = plan.runtime.options.env;
 
+  local.log(plan.runtime.options.MONGO_USERNAME);
+  local.log(plan.runtime.options.MONGO_PASSWORD);
+
   /**
    * Create folders
    */
