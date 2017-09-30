@@ -12,8 +12,11 @@ exports.sendNotification = ( url, project, msg ) => {
       body    : JSON.stringify(body),
       headers : { 'Content-Type' : 'application/json' },
     })
-      .catch(() => {
-      
+      .then(() => {
+        console.log('Notification sent');
+      })
+      .catch(( err ) => {
+        console.log('Error when sending notification');
       });
   }
 

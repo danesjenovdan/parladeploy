@@ -1,4 +1,4 @@
-if ( process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'development' && process.env.NODE_ENV !== 'staging' ) throw Error('Missing NODE_ENV');
+if ( process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'develop' && process.env.NODE_ENV !== 'staging' ) throw Error('Missing NODE_ENV');
 
 let config;
 

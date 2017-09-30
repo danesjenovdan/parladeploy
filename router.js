@@ -30,7 +30,7 @@ exports.init = ( app ) => {
   app.post('/deploy/:project', ( req, res ) => {
 
     const project   = req.params.project;
-    const outputUrl = req.body.outputUrl;
+    const outputUrl = config.OUTPUT_URL;
 
     if ( !targets[project] ) return res.status(404).send('Project does not exist');
 
@@ -41,10 +41,11 @@ exports.init = ( app ) => {
 
       let msg = '';
 
+      if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, `Start deploy: ${project}`);
+
       ls.stdout.on('data', data => {
         msg += data;
         console.log(data.toString());
-        if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, data.toString());
       });
 
       ls.stderr.on('data', data => {
@@ -55,12 +56,12 @@ exports.init = ( app ) => {
 
         if ( code === 0 ) {
           setTimeout(() => {
-            if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, 'DEPLOYMENT COMPLETE');
+            if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, `Finish deploy: ${project}`);
           }, 1000);
           res.status(200).send(msg);
         }
         else {
-          notificationHelper.sendNotification(project, msg, true);
+          notificationHelper.sendNotification(outputUrl, project, msg);
           res.status(400).send(msg);
         }
 
