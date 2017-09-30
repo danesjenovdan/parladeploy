@@ -1,7 +1,7 @@
-const config                   = require('./config');
-const Promise                  = require('bluebird');
-const notificationHelper       = require('./helpers/notification');
-const request                  = require('request');
+const config             = require('./config');
+const Promise            = require('bluebird');
+const notificationHelper = require('./helpers/notification');
+const request            = require('request');
 
 exports.init = ( app ) => {
 
@@ -29,17 +29,14 @@ exports.init = ( app ) => {
     return new Promise(( resolve, reject ) => {
 
       const spawn = require('child_process').spawn;
-
-      console.log('Spawn: ', [`deploy:${process.env.NODE_ENV}`, `--flightplan`, `flightplan/${project}.js`]);
-
-      const ls = spawn(`fly`, [`deploy:${process.env.NODE_ENV}`, `--flightplan`, `flightplan/${project}.js`]);
+      const ls    = spawn(`fly`, [`deploy:${process.env.NODE_ENV}`, `--flightplan`, `flightplan/${project}.js`]);
 
       let msg = '';
 
       ls.stdout.on('data', data => {
         msg += data;
         console.log(data.toString());
-        // if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, data.toString());
+        if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, data.toString());
       });
 
       ls.stderr.on('data', data => {
@@ -50,12 +47,12 @@ exports.init = ( app ) => {
 
         if ( code === 0 ) {
           setTimeout(() => {
-            // if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, 'DEPLOYMENT COMPLETE');
+            if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, 'DEPLOYMENT COMPLETE');
           }, 1000);
           res.status(200).send(msg);
         }
         else {
-          // notificationHelper.sendNotification(project, msg, true);
+          notificationHelper.sendNotification(project, msg, true);
           res.status(400).send(msg);
         }
 
