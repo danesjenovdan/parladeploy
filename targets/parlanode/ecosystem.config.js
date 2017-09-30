@@ -42,7 +42,7 @@ module.exports = {
     staging    : {
       user          : 'parladaddy',
       host          : 'localhost',
-      ref           : 'origin/develop',
+      ref           : 'origin/staging',
       repo          : 'git@parlanode:danesjenovdan/parlanode.git',
       path          : `${config.PROJECTS_DIR_PATH}/parlanode`,
       'post-deploy' : `npm install && npm update && pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/targets/parlanode/ecosystem.config.js --env staging`,
