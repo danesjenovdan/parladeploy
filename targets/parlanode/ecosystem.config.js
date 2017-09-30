@@ -45,7 +45,7 @@ module.exports = {
       ref           : 'origin/staging',
       repo          : 'git@parlanode:danesjenovdan/parlanode.git',
       path          : `${config.PROJECTS_DIR_PATH}/parlanode`,
-      'post-deploy' : `npm install && npm update && pm2 startOrRestart ecosystem.config.js --env staging && git stash`,
+      'post-deploy' : `npm install && npm update && pm2 startOrRestart ecosystem.config.js --env staging --force && git stash`,
       env           : {
         NODE_ENV : 'staging'
       }
