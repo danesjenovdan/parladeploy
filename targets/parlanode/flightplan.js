@@ -27,7 +27,7 @@ plan.local(['deploy', 'default'], ( local ) => {
    * Create folders
    */
   local.log('Cloning repo');
-  local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment}`)
+  local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment} --force`)
 
 });
 
