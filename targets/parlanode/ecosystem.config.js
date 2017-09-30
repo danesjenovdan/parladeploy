@@ -18,9 +18,9 @@ module.exports = {
         NODE_ENV : 'production'
       },
       env_staging    : {
-        NODE_ENV : 'staging',
-        MONGO_USERNAME:'${MONGO_USERNAME}',
-        MONGO_PASSWORD:'${MONGO_PASSWORD}',
+        NODE_ENV       : 'staging',
+        MONGO_USERNAME : process.env.MONGO_USERNAME,
+        MONGO_PASSWORD : process.env.MONGO_PASSWORD,
       }
     }
   ],
@@ -49,7 +49,9 @@ module.exports = {
       path          : `${config.PROJECTS_DIR_PATH}/parlanode`,
       'post-deploy' : `npm install && npm update && MONGO_USERNAME=${MONGO_USERNAME} MONGO_PASSWORD=${MONGO_PASSWORD} pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/targets/parlanode/ecosystem.config.js --env staging`,
       env           : {
-        NODE_ENV : 'staging'
+        NODE_ENV       : 'staging',
+        MONGO_USERNAME : process.env.MONGO_USERNAME,
+        MONGO_PASSWORD : process.env.MONGO_PASSWORD,
       }
     }
   }
