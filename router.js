@@ -29,6 +29,7 @@ exports.init = ( app ) => {
    */
   app.post('/deploy/:project', ( req, res ) => {
 
+    const env       = process.env.NODE_ENV;
     const project   = req.params.project;
     const outputUrl = config.OUTPUT_URL;
 
