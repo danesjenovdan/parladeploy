@@ -18,7 +18,9 @@ module.exports = {
         NODE_ENV : 'production'
       },
       env_staging    : {
-        NODE_ENV : 'staging'
+        NODE_ENV : 'staging',
+        MONGO_USERNAME:'${MONGO_USERNAME}',
+        MONGO_PASSWORD:'${MONGO_PASSWORD}',
       }
     }
   ],
