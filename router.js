@@ -3,6 +3,11 @@ const Promise            = require('bluebird');
 const notificationHelper = require('./helpers/notification');
 const request            = require('request');
 
+const targets = {
+  parlanode : 'parlanode',
+  parlasite : 'parlasite'
+};
+
 exports.init = ( app ) => {
 
   /**
@@ -24,12 +29,15 @@ exports.init = ( app ) => {
    */
   app.post('/deploy/:project', ( req, res ) => {
 
-    const project = req.params.project;
+    const project   = req.params.project;
+    const outputUrl = req.body.outputUrl;
+
+    if ( !targets[project] ) return res.status(404).send('Project does not exist');
 
     return new Promise(( resolve, reject ) => {
 
       const spawn = require('child_process').spawn;
-      const ls    = spawn(`fly`, [`deploy:${process.env.NODE_ENV}`, `--flightplan`, `flightplan/${project}.js`]);
+      const ls    = spawn(`fly`, [`deploy:${process.env.NODE_ENV}`, `--flightplan`, `targets/${targets[project]}/flightplan.js`]);
 
       let msg = '';
 

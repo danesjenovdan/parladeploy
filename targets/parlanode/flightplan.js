@@ -1,19 +1,19 @@
 const plan   = require('flightplan');
-const config = require('../config');
+const config = require('../../config');
 
 /**
  * Configuration
  */
 plan.target('production', {
-	host : 'localhost'
+  host : 'localhost'
 }, {
-	env: 'production'
+  env: 'production'
 });
 
 plan.target('staging', {
   host : 'localhost'
 }, {
-	env: 'staging'
+  env: 'staging'
 });
 
 /**
@@ -21,13 +21,13 @@ plan.target('staging', {
  */
 plan.local(['deploy', 'default'], ( local ) => {
 
-	const enviroment = plan.runtime.options.env;
+  const enviroment = plan.runtime.options.env;
 
   /**
    * Create folders
    */
   local.log('Cloning repo');
-  local.exec(`pm2 deploy ${config.DEPLOY_SCRIPT_PATH}/ecosystems/api.config.js ${enviroment}`)
+  local.exec(`pm2 deploy ${config.DEPLOY_SCRIPT_PATH}/ecosystems/parlanode.config.js ${enviroment}`)
 
 });
 
@@ -36,7 +36,7 @@ plan.local(['deploy', 'default'], ( local ) => {
  */
 plan.local('revert', ( local ) => {
 
-	const enviroment = plan.runtime.options.env;
+  const enviroment = plan.runtime.options.env;
 
   /**
    * Revert
@@ -51,7 +51,7 @@ plan.local('revert', ( local ) => {
  */
 plan.local('stop', ( local ) => {
 
-	const enviroment = plan.runtime.options.env;
+  const enviroment = plan.runtime.options.env;
 
   /**
    * Stop with pm2

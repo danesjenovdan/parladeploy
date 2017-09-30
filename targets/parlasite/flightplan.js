@@ -1,5 +1,5 @@
 const plan   = require('flightplan');
-const config = require('../config');
+const config = require('../../config');
 
 /**
  * Configuration
@@ -27,7 +27,7 @@ plan.local(['deploy', 'default'], ( local ) => {
    * Create folders
    */
   local.log('Cloning repo');
-  local.exec(`pm2 deploy ${config.DEPLOY_SCRIPT_PATH}/ecosystems/parlanode.config.js ${enviroment}`)
+  local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment}`)
 
 });
 
@@ -42,7 +42,7 @@ plan.local('revert', ( local ) => {
    * Revert
    */
   local.log('Cloning repo');
-  local.exec(`pm2 deploy ${config.DEPLOY_SCRIPT_PATH}/ecosystems/api.config.js ${enviroment} revert`);
+  local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment} revert`);
 
 });
 
@@ -57,6 +57,6 @@ plan.local('stop', ( local ) => {
    * Stop with pm2
    */
   local.log('Stopping app');
-  local.exec(`pm2 stop ${config.DEPLOY_SCRIPT_PATH}/ecosystems/api.config.js ${enviroment}`);
+  local.exec(`pm2 stop ${__dirname}/ecosystem.config.js ${enviroment}`);
 
 });

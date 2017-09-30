@@ -29,10 +29,10 @@ module.exports = {
    */
   deploy : {
     production : {
-      user          : 'root',
+      user          : 'parladaddy',
       host          : 'localhost',
       ref           : 'origin/master',
-      repo          : 'git@parlameter-api:parlameter/parlameter-api.git',
+      repo          : 'git@parlanode:danesjenovdan/parlanode.git',
       path          : `${config.PROJECTS_DIR_PATH}/api`,
       'post-deploy' : `git submodule update --init --recursive && npm install && npm update && pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/ecosystems/api.config.js --env production`,
       env           : {
@@ -40,12 +40,12 @@ module.exports = {
       }
     },
     staging    : {
-      user          : 'root',
+      user          : 'parladaddy',
       host          : 'localhost',
       ref           : 'origin/staging',
-      repo          : 'git@parlameter-api:parlameter/parlameter-api.git',
+      repo          : 'git@parlanode:danesjenovdan/parlanode.git',
       path          : `${config.PROJECTS_DIR_PATH}/api`,
-      'post-deploy' : `git submodule update --init --recursive && npm install && npm update && pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/ecosystems/api.config.js --env staging`,
+      'post-deploy' : `npm install && npm update && pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/ecosystems/api.config.js --env staging`,
       env           : {
         NODE_ENV : 'staging'
       }
