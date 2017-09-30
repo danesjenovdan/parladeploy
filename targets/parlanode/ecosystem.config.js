@@ -41,11 +41,11 @@ module.exports = {
     },
     staging    : {
       user          : 'parladaddy',
-      host          : 'localhost',
+      host          : 'knedl.si',
       ref           : 'origin/staging',
       repo          : 'git@parlanode:danesjenovdan/parlanode.git',
       path          : `${config.PROJECTS_DIR_PATH}/parlanode`,
-      'post-deploy' : `npm install && npm update && pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/targets/parlanode/ecosystem.config.js --env staging`,
+      'post-deploy' : `npm install && npm update && MONGO_USERNAME=${MONGO_USERNAME} MONGO_PASSWORD=${MONGO_PASSWORD} pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/targets/parlanode/ecosystem.config.js --env staging`,
       env           : {
         NODE_ENV : 'staging'
       }
