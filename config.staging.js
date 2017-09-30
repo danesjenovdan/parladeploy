@@ -1,7 +1,7 @@
 module.exports = {
 
   PORT              : 3051,
-  PROJECTS_DIR_PATH : '/home/centos/parlameter',
+  PROJECTS_DIR_PATH : '/home/parladaddy',
   DEPLOY_SCRIPT_PATH: '/home/centos/parlameter/deploy'
 
 };

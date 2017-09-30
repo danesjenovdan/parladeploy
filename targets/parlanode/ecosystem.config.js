@@ -33,7 +33,7 @@ module.exports = {
       host          : 'localhost',
       ref           : 'origin/master',
       repo          : 'git@parlanode:danesjenovdan/parlanode.git',
-      path          : `${config.PROJECTS_DIR_PATH}/api`,
+      path          : `${config.PROJECTS_DIR_PATH}/parlanode`,
       'post-deploy' : `git submodule update --init --recursive && npm install && npm update && pm2 startOrRestart ecosystem.config.js --env production`,
       env           : {
         NODE_ENV : 'production'
@@ -44,7 +44,7 @@ module.exports = {
       host          : 'localhost',
       ref           : 'origin/staging',
       repo          : 'git@parlanode:danesjenovdan/parlanode.git',
-      path          : `${config.PROJECTS_DIR_PATH}/api`,
+      path          : `${config.PROJECTS_DIR_PATH}/parlanode`,
       'post-deploy' : `npm install && npm update && pm2 startOrRestart ecosystem.config.js --env staging && git stash`,
       env           : {
         NODE_ENV : 'staging'
