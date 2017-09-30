@@ -12,7 +12,9 @@ module.exports = {
       name           : 'parlanode',
       script         : 'run.js',
       env            : {
-        COMMON_VARIABLE : 'true'
+        COMMON_VARIABLE : 'true',
+        MONGO_USERNAME : process.env.MONGO_USERNAME,
+        MONGO_PASSWORD : process.env.MONGO_PASSWORD,
       },
       env_production : {
         NODE_ENV : 'production'
