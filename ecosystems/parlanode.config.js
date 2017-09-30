@@ -14,11 +14,11 @@ module.exports = {
       env            : {
         COMMON_VARIABLE : 'true'
       },
-      env_production: {
-        NODE_ENV: 'production'
+      env_production : {
+        NODE_ENV : 'production'
       },
-      env_staging: {
-        NODE_ENV: 'staging'
+      env_staging    : {
+        NODE_ENV : 'staging'
       }
     }
   ],
@@ -28,7 +28,7 @@ module.exports = {
    * http://pm2.keymetrics.io/docs/usage/deployment/
    */
   deploy : {
-    production  : {
+    production : {
       user          : 'root',
       host          : 'localhost',
       ref           : 'origin/master',
@@ -44,6 +44,7 @@ module.exports = {
       host          : 'localhost',
       ref           : 'origin/staging',
       repo          : 'git@parlameter-api:parlameter/parlameter-api.git',
+      ssh_options   : ['StrictHostKeyChecking=no', 'PasswordAuthentication=no'],
       path          : `${config.PROJECTS_DIR_PATH}/api`,
       'post-deploy' : `git submodule update --init --recursive && npm install && npm update && pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/ecosystems/api.config.js --env staging`,
       env           : {
