@@ -41,7 +41,7 @@ exports.init = ( app ) => {
 
       let msg = '';
 
-      if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, `Start deploy: ${project}`);
+      if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, `Started deploying *${project}* on *${env}*`);
 
       ls.stdout.on('data', data => {
         msg += data;
@@ -49,14 +49,15 @@ exports.init = ( app ) => {
       });
 
       ls.stderr.on('data', data => {
-        console.log(`stderr: ${data}`);
+        if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, `Error on deploy: *${project}* on *${env}*`);
+        reject(data);
       });
 
       ls.on('close', code => {
 
         if ( code === 0 ) {
           setTimeout(() => {
-            if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, `Finish deploy: ${project}`);
+            if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, `Finish deploy: *${project}* on *${env}*`);
           }, 1000);
           res.status(200).send(msg);
         }
