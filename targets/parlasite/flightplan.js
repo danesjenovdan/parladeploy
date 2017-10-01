@@ -7,13 +7,13 @@ const config = require('../../config');
 plan.target('production', {
   host : 'localhost'
 }, {
-  env: 'production'
+  env : 'production'
 });
 
 plan.target('staging', {
   host : 'localhost'
 }, {
-  env: 'staging'
+  env : 'staging'
 });
 
 /**
@@ -27,7 +27,7 @@ plan.local(['deploy', 'default'], ( local ) => {
    * Create folders
    */
   local.log('Cloning repo');
-  local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment}`)
+  local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment} --force`)
 
 });
 
@@ -37,12 +37,15 @@ plan.local(['deploy', 'default'], ( local ) => {
 plan.local('revert', ( local ) => {
 
   const enviroment = plan.runtime.options.env;
+  const commit     = plan.runtime.options.commit;
+
+  if ( !commit ) throw new Error('Missing commit');
 
   /**
    * Revert
    */
   local.log('Cloning repo');
-  local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment} revert`);
+  local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment} ref ${commit} --force`);
 
 });
 
@@ -57,6 +60,6 @@ plan.local('stop', ( local ) => {
    * Stop with pm2
    */
   local.log('Stopping app');
-  local.exec(`pm2 stop ${__dirname}/ecosystem.config.js ${enviroment}`);
+  local.exec(`pm2 stop ${__dirname}/ecosystem.config.js ${enviroment} --force`);
 
 });
