@@ -95,7 +95,7 @@ exports.init = ( app ) => {
 
       let msg = '';
 
-      if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, `Start revert of *${project}* on *${env}* to commit **${commit}`);
+      if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, `Start revert of *${project}* on *${env}* to commit *${commit}*`);
 
       ls.stdout.on('data', data => {
         msg += data;
@@ -103,14 +103,14 @@ exports.init = ( app ) => {
       });
 
       ls.stderr.on('data', data => {
-        if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, `Error on revert: *${project}* on *${env}* to commit **${commit}`);
+        if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, `Error on revert: *${project}* on *${env}* to commit *${commit}*`);
         reject(data);
       });
 
       ls.on('close', code => {
 
         if ( code === 0 ) {
-          if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, `Finished revert: *${project}* on *${env}* to commit **${commit}`);
+          if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, `Finished revert: *${project}* on *${env}* to commit *${commit}*`);
           res.status(200).send(msg);
         }
         else {
