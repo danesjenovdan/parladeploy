@@ -38,7 +38,7 @@ module.exports = {
       ref           : 'origin/master',
       repo          : 'git@parladeploy:danesjenovdan/parladeploy.git',
       path          : '/home/parladaddy/parladeploy',
-      'post-deploy' : `npm install && MONGO_USERNAME=\${MONGO_USERNAME} MONGO_PASSWORD=\${MONGO_PASSWORD} pm2 reload ecosystem.config.js --env staging  --update-env`,
+      'post-deploy' : `npm install && MONGO_USERNAME=${process.env.MONGO_USERNAME} MONGO_PASSWORD=${process.env.MONGO_PASSWORD} pm2 reload ecosystem.config.js --env staging  --update-env`,
     },
     dev        : {
       user          : 'node',
