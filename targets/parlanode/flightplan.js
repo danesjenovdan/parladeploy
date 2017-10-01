@@ -45,7 +45,7 @@ plan.local('revert', ( local ) => {
    * Revert
    */
   local.log('Cloning repo');
-  local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment} ref ${commit}`);
+  local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment} ref ${commit} --force`);
 
 });
 
@@ -60,6 +60,6 @@ plan.local('stop', ( local ) => {
    * Stop with pm2
    */
   local.log('Stopping app');
-  local.exec(`pm2 stop ${__dirname}/ecosystem.config.js ${enviroment}`);
+  local.exec(`pm2 stop ${__dirname}/ecosystem.config.js ${enviroment} --force`);
 
 });
