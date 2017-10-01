@@ -5,7 +5,7 @@
   "license": "DJND",
   "scripts": {
     "dev": "NODE_ENV=development supervisor run",
-    "deploy:staging": "MONGO_USERNAME=${MONGO_USERNAME} MONGO_PASSWORD=${MONGO_PASSWORD} pm2 deploy staging",
+    "deploy:staging": "pm2 deploy staging",
     "deploy:production": "MONGO_USERNAME=${MONGO_USERNAME} MONGO_PASSWORD=${MONGO_PASSWORD} pm2 deploy production"
   },
   "dependencies": {
