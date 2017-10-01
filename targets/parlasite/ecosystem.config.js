@@ -9,7 +9,7 @@ module.exports = {
 
     // First application
     {
-      name           : 'parlanode',
+      name           : 'parlasite',
       script         : 'run.js',
       env            : {
         COMMON_VARIABLE : 'true',
@@ -43,7 +43,7 @@ module.exports = {
     },
     staging    : {
       user          : 'parladaddy',
-      host          : 'localhost',
+      host          : 'knedl.si',
       ref           : 'origin/staging',
       repo          : 'git@parlasite:danesjenovdan/parlasite.git',
       path          : `${config.PROJECTS_DIR_PATH}/parlasite`,

@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "NODE_ENV=development supervisor run",
     "deploy:staging": "MONGO_USERNAME=${MONGO_USERNAME} MONGO_PASSWORD=${MONGO_PASSWORD} pm2 deploy staging",
-    "deploy:production": "MONGO_USERNAME=${MONGO_USERNAME} MONGO_PASSWORD=${MONGO_PASSWORD} pm2 deploy production"
+    "deploy:production": "MONGO_USERNAME=${MONGO_USERNAME} MONGO_PASSWORD=${MONGO_PASSWORD} pm2 deploy production",
+    "parlasite:setup:staging":"NODE_ENV=staging pm2 deploy targets/parlasite/ecosystem.config.js staging setup",
+    "parlanode:setup:staging":"NODE_ENV=staging pm2 deploy targets/parlanode/ecosystem.config.js staging setup"
   },
   "dependencies": {
     "bluebird": "3.5.0",
