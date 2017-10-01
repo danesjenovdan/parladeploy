@@ -10,6 +10,9 @@ module.exports = {
       script         : 'run.js',
       env_production : {
         NODE_ENV : 'production'
+      },
+      env_staging : {
+        NODE_ENV : 'staging'
       }
     }
   ],
