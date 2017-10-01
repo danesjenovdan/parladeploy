@@ -42,7 +42,7 @@ plan.local('revert', ( local ) => {
    * Revert
    */
   local.log('Cloning repo');
-  local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment} revert`);
+  local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment} revert prev`);
 
 });
 
