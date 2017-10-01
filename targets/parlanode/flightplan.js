@@ -7,13 +7,13 @@ const config = require('../../config');
 plan.target('production', {
   host : 'localhost'
 }, {
-  env: 'production'
+  env : 'production'
 });
 
 plan.target('staging', {
   host : 'localhost'
 }, {
-  env: 'staging'
+  env : 'staging'
 });
 
 /**
@@ -27,6 +27,8 @@ plan.local(['deploy', 'default'], ( local ) => {
    * Create folders
    */
   local.log('Cloning repo');
+  local.log('process.env.MONGO_USERNAME: ', process.env.MONGO_USERNAME);
+  local.log('process.env.MONGO_PASSWORD: ', process.env.MONGO_PASSWORD);
   local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment} --force`)
 
 });
@@ -37,9 +39,9 @@ plan.local(['deploy', 'default'], ( local ) => {
 plan.local('revert', ( local ) => {
 
   const enviroment = plan.runtime.options.env;
-  const commit = plan.runtime.options.commit;
+  const commit     = plan.runtime.options.commit;
 
-  if(!commit) throw new Error('Missing commit');
+  if ( !commit ) throw new Error('Missing commit');
 
   /**
    * Revert
