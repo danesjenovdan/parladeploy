@@ -80,16 +80,18 @@ exports.init = ( app ) => {
 
   });
 
-  app.post('/revert/:project', ( req, res ) => {
+  app.post('/revert/:project/:commit', ( req, res ) => {
 
     const project = req.params.project;
+    const commit  = req.params.commit;
 
-    if ( !targets[project] ) return res.status(404).send('Project does not exist');
+    if(!commit) return res.status(400).send('Commit param missing. The url format is /revert/:project/:commit');
+    if ( !targets[project] ) return res.status(404).send('Project does not exist. The url format is /revert/:project/:commit');
 
     return new Promise(( resolve, reject ) => {
 
       const spawn = require('child_process').spawn;
-      const ls    = spawn(`fly`, [`revert:${process.env.NODE_ENV}`, `--flightplan`, `targets/${targets[project]}/flightplan.js`]);
+      const ls    = spawn(`fly`, [`revert:${process.env.NODE_ENV}`, `--flightplan`, `targets/${targets[project]}/flightplan.js`, `--commit=${commit}`]);
 
       let msg = '';
 

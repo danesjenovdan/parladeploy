@@ -37,12 +37,15 @@ plan.local(['deploy', 'default'], ( local ) => {
 plan.local('revert', ( local ) => {
 
   const enviroment = plan.runtime.options.env;
+  const commit = plan.runtime.options.commit;
+
+  if(!commit) throw new Error('Missing commit');
 
   /**
    * Revert
    */
   local.log('Cloning repo');
-  local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment} revert prev`);
+  local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment} ref ${commit}`);
 
 });
 
