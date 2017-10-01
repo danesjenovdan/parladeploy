@@ -43,7 +43,7 @@ module.exports = {
     },
     staging    : {
       user          : 'parladaddy',
-      host          : 'knedl.si',
+      host          : 'localhost',
       ref           : 'origin/staging',
       repo          : 'git@parlasite:danesjenovdan/parlasite.git',
       path          : `${config.PROJECTS_DIR_PATH}/parlasite`,
