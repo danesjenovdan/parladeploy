@@ -42,11 +42,7 @@ module.exports = {
       ref           : 'origin/master',
       repo          : 'git@parladeploy:danesjenovdan/parladeploy.git',
       path          : '/home/parladaddy/parladeploy',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env staging',
-      env           : {
-        MONGO_USERNAME : process.env.MONGO_USERNAME,
-        MONGO_PASSWORD : process.env.MONGO_PASSWORD,
-      }
+      'post-deploy' : `npm install && MONGO_USERNAME=${process.env.MONGO_USERNAME} MONGO_PASSWORD=${process.env.MONGO_PASSWORD} pm2 reload ecosystem.config.js --env staging  --update-env`,
     },
     dev        : {
       user          : 'node',
@@ -55,9 +51,6 @@ module.exports = {
       repo          : 'git@github.com:repo.git',
       path          : '/var/www/development',
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env dev',
-      env           : {
-        NODE_ENV : 'dev'
-      }
     }
   }
 };
