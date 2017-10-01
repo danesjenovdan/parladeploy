@@ -27,8 +27,6 @@ plan.local(['deploy', 'default'], ( local ) => {
    * Create folders
    */
   local.log('Cloning repo');
-  local.log('process.env.MONGO_USERNAME: ', process.env.MONGO_USERNAME);
-  local.log('process.env.MONGO_PASSWORD: ', process.env.MONGO_PASSWORD);
   local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment} --force`)
 
 });
