@@ -47,7 +47,7 @@ module.exports = {
       ref           : 'origin/staging',
       repo          : 'git@parlassets:danesjenovdan/parlassets.git',
       path          : `${config.PROJECTS_DIR_PATH}/parlassets`,
-      'post-deploy' : `npm install && npm update && npm run build`,
+      'post-deploy' : `npm install && yarn && npm update && npm run build`,
       env           : {
         NODE_ENV       : 'staging',
       }
