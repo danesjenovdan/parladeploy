@@ -4,8 +4,9 @@ const notificationHelper = require('./helpers/notification');
 const request            = require('request');
 
 const targets = {
-  parlanode : 'parlanode',
-  parlasite : 'parlasite'
+  parlanode  : 'parlanode',
+  parlasite  : 'parlasite',
+  parlassets : 'parlassets'
 };
 
 const outputUrl = config.OUTPUT_URL;
@@ -85,7 +86,7 @@ exports.init = ( app ) => {
     const project = req.params.project;
     const commit  = req.params.commit;
 
-    if(!commit) return res.status(400).send('Commit param missing. The url format is /revert/:project/:commit');
+    if ( !commit ) return res.status(400).send('Commit param missing. The url format is /revert/:project/:commit');
     if ( !targets[project] ) return res.status(404).send('Project does not exist. The url format is /revert/:project/:commit');
 
     return new Promise(( resolve, reject ) => {
