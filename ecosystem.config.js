@@ -6,7 +6,7 @@ module.exports = {
   apps : [
 
     {
-      name           : 'deploy',
+      name           : 'parladeploy',
       script         : 'run.js',
       env_production : {
         NODE_ENV : 'production'
