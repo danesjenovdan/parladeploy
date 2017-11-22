@@ -34,17 +34,17 @@ exports.init = ( app ) => {
    */
   app.post('/deploy/:project', ( req, res ) => {
 
-    console.log(req.body);
+    const payload = JSON.parse(req.body.payload);
 
     console.log('process.env.NODE_ENV: ',process.env.NODE_ENV);
-    console.log('_.last(req.body.payload.ref.split(\'/\')): ',_.last(req.body.payload.ref.split('/')));
+    console.log('branch ',_.last(payload.ref.split('/')));
 
     // if NODE_ENV is not set to either 'staging' or 'master'
     if ( process.env.NODE_ENV !== 'master' && process.env.NODE_ENV !== 'staging' ) return res.send(200);
     // if NODE_ENV is staging but push was not to staging
-    if ( process.env.NODE_ENV === 'staging' && _.last(req.body.payload.ref.split('/')) !== 'staging' ) return res.send(200);
+    if ( process.env.NODE_ENV === 'staging' && _.last(payload.ref.split('/')) !== 'staging' ) return res.send(200);
     // if NODE_ENV is master but push was not to master
-    if ( process.env.NODE_ENV === 'master' && _.last(req.body.payload.ref.split('/')) !== 'master' ) return res.send(200);
+    if ( process.env.NODE_ENV === 'master' && _.last(payload.ref.split('/')) !== 'master' ) return res.send(200);
 
     const project = req.params.project;
 
