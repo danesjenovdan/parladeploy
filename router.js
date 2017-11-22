@@ -44,7 +44,7 @@ exports.init = ( app ) => {
     // if NODE_ENV is staging but push was not to staging
     if ( process.env.NODE_ENV === 'staging' && _.last(payload.ref.split('/')) !== 'staging' ) return res.send(200);
     // if NODE_ENV is master but push was not to master
-    if ( process.env.NODE_ENV === 'master' && _.last(payload.ref.split('/')) !== 'master' ) return res.send(200);
+    if ( process.env.NODE_ENV === 'production' && _.last(payload.ref.split('/')) !== 'master' ) return res.send(200);
 
     const project = req.params.project;
 
