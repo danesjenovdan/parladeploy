@@ -34,6 +34,8 @@ exports.init = ( app ) => {
    */
   app.post('/deploy/:project', ( req, res ) => {
 
+    console.log(req.body);
+
     console.log('process.env.NODE_ENV: ',process.env.NODE_ENV);
     console.log('_.last(req.body.ref.split(\'/\')): ',_.last(req.body.ref.split('/')));
 
