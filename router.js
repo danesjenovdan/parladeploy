@@ -2,6 +2,7 @@ const config             = require('./config');
 const Promise            = require('bluebird');
 const notificationHelper = require('./helpers/notification');
 const request            = require('request');
+const _                  = require('lodash');
 
 const targets = {
   parlanode  : 'parlanode',
@@ -32,6 +33,13 @@ exports.init = ( app ) => {
    * @param {String} req.body.env
    */
   app.post('/deploy/:project', ( req, res ) => {
+
+    // if NODE_ENV is not set to either 'staging' or 'master'
+    if ( process.env.NODE_ENV !== 'master' || process.env.NODE_ENV !== 'staging' ) return res.send(200);
+    // if NODE_ENV is staging but push was not to staging
+    if ( process.env.NODE_ENV === 'staging' && _.last(req.body.ref.split('/')) !== 'staging' ) return res.send(200);
+    // if NODE_ENV is master but push was not to master
+    if ( process.env.NODE_ENV === 'master' && _.last(req.body.ref.split('/')) !== 'master' ) return res.send(200);
 
     const project = req.params.project;
 
