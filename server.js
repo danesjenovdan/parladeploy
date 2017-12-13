@@ -3,7 +3,7 @@ const app        = express();
 const config     = require('./config');
 const bodyParser = require('body-parser');
 
-app.use(bodyParser({limit: '50mb'}));
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ extended : true }));
 
 exports.init = () => {

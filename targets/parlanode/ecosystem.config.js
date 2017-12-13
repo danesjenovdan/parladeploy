@@ -38,7 +38,7 @@ module.exports = {
       ref           : 'origin/master',
       repo          : 'git@parlanode:danesjenovdan/parlanode.git',
       path          : `${config.PROJECTS_DIR_PATH}/parlanode`,
-      'post-deploy' : `yarn && MONGO_USERNAME=\${MONGO_USERNAME} MONGO_PASSWORD=\${MONGO_PASSWORD} pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/targets/parlanode/ecosystem.config.js --env staging --update-env`,
+      'post-deploy' : `yarn && MONGO_USERNAME=\${MONGO_USERNAME} MONGO_PASSWORD=\${MONGO_PASSWORD} pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/targets/parlanode/ecosystem.config.js --env production --update-env`,
       env           : {
         NODE_ENV : 'production'
       }
