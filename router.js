@@ -79,9 +79,7 @@ exports.init = ( app ) => {
           res.status(200).send(msg);
         }
         else {
-          console.log(outputUrl, 222);
           notificationHelper.sendNotification(outputUrl, project, msg);
-          console.log('did not die yet');
           // res.status(400).send(msg);
         }
 

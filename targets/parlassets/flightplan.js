@@ -27,39 +27,19 @@ plan.local(['deploy', 'default'], ( local ) => {
    * Create folders
    */
   local.log('Cloning repo');
-  local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment} --force`)
+  local.exec(`cd /home/parladaddy/parlacdn/v1/parlassets; git pull;`)
+
+  local.log('Build for production');
+  local.exec('cd /home/parladaddy/parlacdn/v1/parlassets; yarn build;');
 
 });
 
 /**
  * Revert Deployment
  */
-plan.local('revert', ( local ) => {
-
-  const enviroment = plan.runtime.options.env;
-  const commit     = plan.runtime.options.commit;
-
-  if ( !commit ) throw new Error('Missing commit');
-
-  /**
-   * Revert
-   */
-  local.log('Cloning repo');
-  local.exec(`pm2 deploy ${__dirname}/ecosystem.config.js ${enviroment} ref ${commit} --force`);
-
-});
+// MISSING!!!
 
 /**
  * Stop app
  */
-plan.local('stop', ( local ) => {
-
-  const enviroment = plan.runtime.options.env;
-
-  /**
-   * Stop with pm2
-   */
-  local.log('Stopping app');
-  local.exec(`pm2 stop ${__dirname}/ecosystem.config.js ${enviroment} --force`);
-
-});
+// NOTHING TO STOP
