@@ -19,8 +19,6 @@ module.exports = {
       },
       env_staging    : {
         NODE_ENV       : 'staging',
-        MONGO_USERNAME : process.env.MONGO_USERNAME,
-        MONGO_PASSWORD : process.env.MONGO_PASSWORD,
       }
     }
   ],
@@ -36,7 +34,7 @@ module.exports = {
       ref           : 'origin/master',
       repo          : 'git@parlasite:danesjenovdan/parlasite.git',
       path          : `${config.PROJECTS_DIR_PATH}/parlasite`,
-      'post-deploy' : `git submodule update --init --recursive && npm install && npm update && pm2 startOrRestart ecosystem.config.js --env production`,
+      'post-deploy' : `yarn && pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/targets/parlanode/ecosystem.config.js --env production --update-env`,
       env           : {
         NODE_ENV : 'production'
       }
@@ -47,7 +45,7 @@ module.exports = {
       ref           : 'origin/staging',
       repo          : 'git@parlasite:danesjenovdan/parlasite.git',
       path          : `${config.PROJECTS_DIR_PATH}/parlasite`,
-      'post-deploy' : `yarn && MONGO_USERNAME=\${MONGO_USERNAME} MONGO_PASSWORD=\${MONGO_PASSWORD} pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/targets/parlasite/ecosystem.config.js --env staging --update-env`,
+      'post-deploy' : `yarn && pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/targets/parlasite/ecosystem.config.js --env staging --update-env`,
       env           : {
         NODE_ENV       : 'staging',
       }
