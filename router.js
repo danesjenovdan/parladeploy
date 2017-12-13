@@ -71,11 +71,15 @@ exports.init = ( app ) => {
 
       ls.on('close', code => {
 
+        console.log(code);
+
         if ( code === 0 ) {
+          console.log(outputUrl);
           if ( outputUrl ) notificationHelper.sendNotification(outputUrl, project, `Finished deploy: *${project}* on *${env}*`);
           res.status(200).send(msg);
         }
         else {
+          console.log(outputUrl, 222);
           notificationHelper.sendNotification(outputUrl, project, msg);
           res.status(400).send(msg);
         }
