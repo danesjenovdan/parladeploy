@@ -34,7 +34,7 @@ module.exports = {
       ref           : 'origin/master',
       repo          : 'git@parlasite:danesjenovdan/parlasite.git',
       path          : `${config.PROJECTS_DIR_PATH}/parlasite`,
-      'post-deploy' : `yarn && pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/targets/parlanode/ecosystem.config.js --env production --update-env`,
+      'post-deploy' : `yarn && pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/targets/parlasite/ecosystem.config.js --env production --update-env`,
       env           : {
         NODE_ENV : 'production'
       }
