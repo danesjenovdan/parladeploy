@@ -1,5 +1,10 @@
 # Parlameter deploy script
 
+## Deploying
+- Make sure pm2 is running on the remote (deployment) server
+- To setup the app on the remote server, run `yarn run deploy:prod:setup` on your local computer (if on windows run from cygwin, mintty, etc.)
+- After that every time you make changes and want to update the remote, run `yarn run deploy:prod` (locally)
+
 ## Overview
 
 Expects webhook requests. Only deploys if branch is `staging` or `master` based on NODE_ENV.
