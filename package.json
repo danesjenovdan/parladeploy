@@ -4,11 +4,8 @@
   "main": "run.js",
   "license": "DJND",
   "scripts": {
-    "dev": "NODE_ENV=development supervisor run",
-    "deploy:staging": "MONGO_USERNAME=${MONGO_USERNAME} MONGO_PASSWORD=${MONGO_PASSWORD} pm2 deploy staging",
-    "deploy:production": "MONGO_USERNAME=${MONGO_USERNAME} MONGO_PASSWORD=${MONGO_PASSWORD} pm2 deploy production",
-    "parlasite:setup:staging":"NODE_ENV=staging pm2 deploy targets/parlasite/ecosystem.config.js staging setup",
-    "parlanode:setup:staging":"NODE_ENV=staging pm2 deploy targets/parlanode/ecosystem.config.js staging setup"
+    "deploy:production": "pm2 deploy production",
+    "parlanode:setup:production": "NODE_ENV=production pm2 deploy targets/parlanode/ecosystem.config.js production setup"
   },
   "dependencies": {
     "bluebird": "3.5.0",
@@ -16,7 +13,11 @@
     "express": "4.15.2",
     "flightplan": "0.6.15",
     "lodash": "4.17.4",
-    "node-fetch": "1.6.3",
-    "request": "2.81.0"
+    "node-fetch": "1.6.3"
+  },
+  "devDependencies": {
+    "eslint": "4.19.1",
+    "eslint-config-airbnb-base": "13.0.0",
+    "eslint-plugin-import": "2.12.0"
   }
 }

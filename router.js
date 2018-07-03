@@ -1,13 +1,12 @@
 const config             = require('./config');
 const Promise            = require('bluebird');
 const notificationHelper = require('./helpers/notification');
-const request            = require('request');
 const _                  = require('lodash');
 
 const targets = {
   parlanode  : 'parlanode',
-  parlasite  : 'parlasite',
-  parlassets : 'parlassets'
+  // parlasite  : 'parlasite',
+  // parlassets : 'parlassets'
 };
 
 const outputUrl = config.OUTPUT_URL;

@@ -1,12 +1,17 @@
-if ( process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'develop' && process.env.NODE_ENV !== 'staging' ) throw Error('Missing NODE_ENV');
+/* eslint-disable global-require */
+const env = process.env.NODE_ENV;
+
+if (env !== 'production' && env !== 'develop' && env !== 'staging') {
+  throw Error('Missing NODE_ENV');
+}
 
 let config;
 
-if(process.env.NODE_ENV === 'production'){
+if (env === 'production') {
   config = require('./config.prod');
-}else if(process.env.NODE_ENV === 'staging'){
+} else if (env === 'staging') {
   config = require('./config.staging');
-}else{
+} else {
   config = require('./config.dev');
 }
 

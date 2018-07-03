@@ -1,23 +1,22 @@
-const express    = require('express');
-const app        = express();
-const config     = require('./config');
+const express = require('express');
 const bodyParser = require('body-parser');
+const config = require('./config');
 
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-app.use(bodyParser.urlencoded({ extended : true }));
+const app = express();
 
-exports.init = () => {
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-  return new Promise(( resolve, reject ) => {
-
-    app.listen(config.PORT, '0.0.0.0', () => {
-
+exports.init = () => (
+  new Promise((resolve, reject) => {
+    app.listen(config.PORT, () => {
       resolve(app);
-
     });
 
-  });
-
-};
+    app.on('error', (err) => {
+      reject(err);
+    });
+  })
+);
 
 exports.app = app;
