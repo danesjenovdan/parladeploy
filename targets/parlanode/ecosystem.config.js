@@ -36,7 +36,7 @@ module.exports = {
       user: 'parlauser',
       host: 'localhost',
       ref: 'origin/develop', // TODO: change to production branch
-      repo: `git@github.com:danesjenovdan/${project}.git`,
+      repo: `https://github.com/danesjenovdan/${project}.git`,
       path: `${config.PROJECTS_DIR_PATH}/${project}`,
       'post-deploy': `${command} --env production --update-env`,
       env: {
@@ -47,7 +47,7 @@ module.exports = {
       user: 'parlauser',
       host: 'localhost',
       ref: 'origin/develop', // TODO: change to staging branch
-      repo: `git@github.com:danesjenovdan/${project}.git`,
+      repo: `https://github.com/danesjenovdan/${project}.git`,
       path: `${config.PROJECTS_DIR_PATH}/${project}`,
       'post-deploy': `${command} --env staging --update-env`,
       env: {

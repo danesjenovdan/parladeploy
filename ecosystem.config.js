@@ -39,6 +39,9 @@ module.exports = {
       repo: `https://github.com/danesjenovdan/${project}.git`,
       path: `${config.PROJECTS_DIR_PATH}/${project}`,
       'post-deploy': `${command} --env production --update-env`,
+      env: {
+        NODE_ENV: 'production',
+      },
     },
     staging: {
       user: 'parlauser',
@@ -47,6 +50,9 @@ module.exports = {
       repo: `https://github.com/danesjenovdan/${project}.git`,
       path: `${config.PROJECTS_DIR_PATH}/${project}`,
       'post-deploy': `${command} --env staging --update-env`,
+      env: {
+        NODE_ENV: 'staging',
+      },
     },
   },
 };
