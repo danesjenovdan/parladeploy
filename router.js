@@ -51,7 +51,7 @@ exports.init = (app) => {
     }
 
     return new Promise((resolve, reject) => {
-      const fly = spawn('fly', [`deploy:${env}`, '--flightplan', `targets/${targets[project]}/flightplan.js`]);
+      const fly = spawn('./node_modules/.bin/fly', [`deploy:${env}`, '--flightplan', `targets/${targets[project]}/flightplan.js`]);
 
       let msg = '';
 
@@ -108,7 +108,7 @@ exports.init = (app) => {
     }
 
     return new Promise((resolve, reject) => {
-      const fly = spawn('fly', [`revert:${process.env.NODE_ENV}`, '--flightplan', `targets/${targets[project]}/flightplan.js`, `--commit=${commit}`]);
+      const fly = spawn('./node_modules/.bin/fly', [`revert:${process.env.NODE_ENV}`, '--flightplan', `targets/${targets[project]}/flightplan.js`, `--commit=${commit}`]);
 
       let msg = '';
 
