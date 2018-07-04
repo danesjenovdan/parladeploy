@@ -13,9 +13,7 @@ function init() {
     .then(() => {
       // eslint-disable-next-line no-console
       console.log(`Server running on port: ${config.PORT}`);
-      if (config.OUTPUT_URL) {
-        notif.sendNotification(config.OUTPUT_URL, project, `Started *${project}* on *${env}*`);
-      }
+      notif.sendNotification(project, `Started *${project}* on *${env}*`);
     })
     .catch((err) => {
       // eslint-disable-next-line no-console
