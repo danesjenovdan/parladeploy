@@ -4,8 +4,8 @@
   "main": "run.js",
   "license": "DJND",
   "scripts": {
-    "deploy:prod": "cross-env NODE_ENV=production pm2 deploy production",
     "deploy:prod:setup": "cross-env NODE_ENV=production pm2 deploy production setup",
+    "deploy:prod": "cross-env NODE_ENV=production pm2 deploy production",
     "parlanode:prod:setup": "cross-env NODE_ENV=production pm2 deploy targets/parlanode/ecosystem.config.js production setup"
   },
   "dependencies": {

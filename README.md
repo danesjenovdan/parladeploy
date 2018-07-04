@@ -5,6 +5,10 @@
 - To setup the app on the remote server, run `yarn run deploy:prod:setup` on your local computer (if on windows run from cygwin, mintty, etc.)
 - After that every time you make changes and want to update the remote, run `yarn run deploy:prod` (locally)
 
+## Setting up project to be auto deployed
+- On the remote server `cd` in to the directory folder e.g. `/home/parlauser/parladeploy/current`
+- In this directory run the command to setup the project e.g. `yarn run parlanode:prod:setup` (this will setup the app to be deployed locally, on the remote server)
+
 ## Overview
 
 Expects webhook requests. Only deploys if branch is `staging` or `master` based on NODE_ENV.
