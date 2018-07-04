@@ -1,18 +1,27 @@
-# Parlameter deploy script
+# parladeploy
+A server that listens for webhooks and auto-deploys configured projects when changes are pushed to github
 
-## Deploying
-- Make sure pm2 is running on the remote (deployment) server
-- To setup the app on the remote server, run `yarn run deploy:prod:setup` on your local computer (if on windows run from cygwin, mintty, etc.)
-- After that every time you make changes and want to update the remote, run `yarn run deploy:prod` (locally)
+---
 
-## Setting up project to be auto deployed
-- On the remote server `cd` in to the directory folder e.g. `/home/parlauser/parladeploy/current`
-- In this directory run the command to setup the project e.g. `yarn run parlanode:prod:setup` (this will setup the app to be deployed locally, on the remote server)
+## Deploying parladeploy itself
+1. On remote server:
+    - Make sure [pm2](https://github.com/Unitech/pm2) is running on the remote (deployment) server
+2. On your local machine:
+    - Install dependencies by running `yarn`
+    - Check out the [`config.prod.js`](./config.prod.js) and [`ecosystem.config.js`](./ecosystem.config.js) file and configure it for your remote user, host, git repo, etc.
+    - Run `yarn run deploy:prod:setup` from your local computer (if on Windows run the command from cygwin, mintty, etc.). This will setup the app on the remote server.
+    - Run `yarn run deploy:prod`. This will update the remote app to your current git ref and (re)start the deployed app. Do this every time you make changes to this repo and want to update the deployed version.
+
+## Setting up auto-deployment for other apps
+1. On remote server:
+    - `cd` to the directory where parladeploy itself is deployed e.g. `/home/parlauser/parladeploy/current`
+    - Check out the configuration in `/targets/<app>/ecosystem.config.js`. If you want to deploy the app to the same machine that parladeploy runs on set the host to `localhost`
+    - Run `yarn run <app>:prod:setup`. This will setup the app to be deployed next time changes are pushed to the configured branch
+
+---
 
 ## Overview
-
 Expects webhook requests. Only deploys if branch is `staging` or `master` based on NODE_ENV.
-
 
 |NODE_ENV  |BRANCH  |
 |----------|--------|

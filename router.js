@@ -1,6 +1,6 @@
 const _ = require('lodash');
+const fs = require('fs');
 const spawn = require('child_process').spawn;
-const config = require('./config');
 const notif = require('./helpers/notification');
 
 const targets = {
@@ -9,7 +9,6 @@ const targets = {
   // parlassets: 'parlassets'
 };
 
-const outputUrl = config.OUTPUT_URL;
 const env = process.env.NODE_ENV;
 
 exports.init = (app) => {
@@ -32,22 +31,27 @@ exports.init = (app) => {
     // eslint-disable-next-line no-console
     console.log('env:', env, 'branch:', branch);
 
-    // only deploy on the correct branch for current environment
-    // if (env === 'production' && branch !== 'master') {
-    //   return res.send('wrong branch');
-    // }
-    // if (env === 'staging' && branch !== 'staging') {
-    //   return res.send('wrong branch');
-    // }
-    // TODO: remove this and uncomment above when we have the correct branch
-    if ((env === 'production' && branch !== 'develop')) {
-      return res.send('wrong branch');
-    }
-
     const project = req.params.project;
 
     if (!targets[project]) {
       return res.status(404).send('wrong project');
+    }
+
+    let deployBranch;
+
+    const ecosystemConfigPath = `./targets/${targets[project]}/ecosystem.config.js`;
+    if (fs.existsSync(ecosystemConfigPath)) {
+      // eslint-disable-next-line global-require, import/no-dynamic-require
+      const ecosystem = require(ecosystemConfigPath);
+      if (ecosystem.deploy && ecosystem.deploy[env] && ecosystem.deploy[env].ref) {
+        deployBranch = _.last(ecosystem.deploy[env].ref.split('/'));
+      }
+    } else {
+      deployBranch = env === 'production' ? 'master' : env;
+    }
+
+    if (!deployBranch || deployBranch !== branch) {
+      return res.send('wrong branch');
     }
 
     return new Promise((resolve, reject) => {
@@ -55,9 +59,7 @@ exports.init = (app) => {
 
       let msg = '';
 
-      if (outputUrl) {
-        notif.sendNotification(outputUrl, project, `Started deploying *${project}* on *${env}*`);
-      }
+      notif.sendNotification(project, `Started deploying *${project}* on *${env}*`);
 
       fly.stdout.on('data', (data) => {
         msg += data;
@@ -66,9 +68,7 @@ exports.init = (app) => {
       });
 
       fly.stderr.on('data', (data) => {
-        if (outputUrl) {
-          notif.sendNotification(outputUrl, project, `Error on deploy: *${project}* on *${env}*`);
-        }
+        notif.sendNotification(project, `Error on deploy: *${project}* on *${env}*`);
         reject(data);
       });
 
@@ -76,14 +76,10 @@ exports.init = (app) => {
         // eslint-disable-next-line no-console
         console.log('exit code:', code);
         if (code === 0) {
-          if (outputUrl) {
-            notif.sendNotification(outputUrl, project, `Finished deploy: *${project}* on *${env}*`);
-          }
+          notif.sendNotification(project, `Finished deploy: *${project}* on *${env}*`);
           res.status(200).send(msg);
         } else {
-          if (outputUrl) {
-            notif.sendNotification(outputUrl, project, msg);
-          }
+          notif.sendNotification(project, msg);
           res.status(400).send(msg);
         }
         resolve();
@@ -112,9 +108,7 @@ exports.init = (app) => {
 
       let msg = '';
 
-      if (outputUrl) {
-        notif.sendNotification(outputUrl, project, `Start revert of *${project}* on *${env}* to commit *${commit}*`);
-      }
+      notif.sendNotification(project, `Start revert of *${project}* on *${env}* to commit *${commit}*`);
 
       fly.stdout.on('data', (data) => {
         msg += data;
@@ -123,9 +117,7 @@ exports.init = (app) => {
       });
 
       fly.stderr.on('data', (data) => {
-        if (outputUrl) {
-          notif.sendNotification(outputUrl, project, `Error on revert: *${project}* on *${env}* to commit *${commit}*`);
-        }
+        notif.sendNotification(project, `Error on revert: *${project}* on *${env}* to commit *${commit}*`);
         reject(data);
       });
 
@@ -133,14 +125,10 @@ exports.init = (app) => {
         // eslint-disable-next-line no-console
         console.log('exit code:', code);
         if (code === 0) {
-          if (outputUrl) {
-            notif.sendNotification(outputUrl, project, `Finished revert: *${project}* on *${env}* to commit *${commit}*`);
-          }
+          notif.sendNotification(project, `Finished revert: *${project}* on *${env}* to commit *${commit}*`);
           res.status(200).send(msg);
         } else {
-          if (outputUrl) {
-            notif.sendNotification(outputUrl, project, msg);
-          }
+          notif.sendNotification(project, msg);
           res.status(400).send(msg);
         }
         resolve();
