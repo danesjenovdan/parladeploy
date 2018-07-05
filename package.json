@@ -2,20 +2,19 @@
   "name": "parlameter-deploy",
   "version": "1.0.0",
   "main": "run.js",
-  "license": "DJND",
+  "license": "Unlicense",
   "scripts": {
     "deploy:prod:setup": "cross-env NODE_ENV=production pm2 deploy production setup",
     "deploy:prod": "cross-env NODE_ENV=production pm2 deploy production",
     "parlanode:prod:setup": "cross-env NODE_ENV=production pm2 deploy targets/parlanode/ecosystem.config.js production setup"
   },
   "dependencies": {
-    "bluebird": "3.5.0",
-    "body-parser": "1.17.1",
+    "body-parser": "^1.18.3",
     "cross-env": "^5.2.0",
-    "express": "4.15.2",
-    "flightplan": "0.6.15",
-    "lodash": "4.17.4",
-    "node-fetch": "1.6.3"
+    "express": "^4.16.3",
+    "flightplan": "^0.6.17",
+    "lodash": "^4.17.10",
+    "node-fetch": "^2.1.2"
   },
   "devDependencies": {
     "eslint": "4.19.1",
