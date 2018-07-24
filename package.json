@@ -8,7 +8,7 @@
     "deploy:hr": "cross-env NODE_ENV=production pm2 deploy production_hr",
     "deploy:uk:setup": "cross-env NODE_ENV=production pm2 deploy production_uk setup",
     "deploy:uk": "cross-env NODE_ENV=production pm2 deploy production_uk",
-    "parlanode:prod:setup": "cross-env NODE_ENV=production pm2 deploy targets/parlanode/ecosystem.config.js production setup"
+    "parlanode:setup": "cross-env NODE_ENV=production pm2 deploy targets/parlanode/ecosystem.config.js production setup"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
