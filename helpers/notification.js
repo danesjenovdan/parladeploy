@@ -8,7 +8,6 @@ exports.sendNotification = (project, msg) => {
       text: msg,
       attachments: [{
         fallback: `${project} - parladeploy on ${os.hostname()}`,
-        color: '#f44',
         footer: `${project} - parladeploy on ${os.hostname()}`,
       }],
     };
