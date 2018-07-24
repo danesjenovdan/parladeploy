@@ -4,8 +4,10 @@
   "main": "run.js",
   "license": "Unlicense",
   "scripts": {
-    "deploy:prod:setup": "cross-env NODE_ENV=production pm2 deploy production setup",
-    "deploy:prod": "cross-env NODE_ENV=production pm2 deploy production",
+    "deploy:hr:setup": "cross-env NODE_ENV=production pm2 deploy production_hr setup",
+    "deploy:hr": "cross-env NODE_ENV=production pm2 deploy production_hr",
+    "deploy:uk:setup": "cross-env NODE_ENV=production pm2 deploy production_uk setup",
+    "deploy:uk": "cross-env NODE_ENV=production pm2 deploy production_uk",
     "parlanode:prod:setup": "cross-env NODE_ENV=production pm2 deploy targets/parlanode/ecosystem.config.js production setup"
   },
   "dependencies": {

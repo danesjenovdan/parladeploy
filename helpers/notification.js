@@ -1,3 +1,4 @@
+const os = require('os');
 const fetch = require('node-fetch');
 const config = require('../config');
 
@@ -6,9 +7,9 @@ exports.sendNotification = (project, msg) => {
     const body = {
       text: msg,
       attachments: [{
-        fallback: `${project} - parladeploy hr`,
+        fallback: `${project} - parladeploy on ${os.hostname()}`,
         color: '#f44',
-        footer: `${project} - parladeploy hr`,
+        footer: `${project} - parladeploy on ${os.hostname()}`,
       }],
     };
 

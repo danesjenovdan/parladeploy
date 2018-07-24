@@ -22,9 +22,6 @@ module.exports = {
     env_production: {
       NODE_ENV: 'production',
     },
-    env_staging: {
-      NODE_ENV: 'staging',
-    },
   }],
 
   /**
@@ -32,10 +29,10 @@ module.exports = {
    * http://pm2.keymetrics.io/docs/usage/deployment/
    */
   deploy: {
-    production: {
+    production_hr: {
       user: 'parlauser',
       host: 'deploy.hr.parlameter.si',
-      ref: 'origin/hr',
+      ref: 'origin/develop',
       repo: `https://github.com/danesjenovdan/${project}.git`,
       path: `${config.PROJECTS_DIR_PATH}/${project}`,
       'post-deploy': `${command} --env production --update-env`,
@@ -43,15 +40,15 @@ module.exports = {
         NODE_ENV: 'production',
       },
     },
-    staging: {
+    production_uk: {
       user: 'parlauser',
-      host: 'localhost',
-      ref: 'origin/hr',
+      host: 'deploy.uk.parlameter.si',
+      ref: 'origin/develop',
       repo: `https://github.com/danesjenovdan/${project}.git`,
       path: `${config.PROJECTS_DIR_PATH}/${project}`,
-      'post-deploy': `${command} --env staging --update-env`,
+      'post-deploy': `${command} --env production --update-env`,
       env: {
-        NODE_ENV: 'staging',
+        NODE_ENV: 'production',
       },
     },
   },
