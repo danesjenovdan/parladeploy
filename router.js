@@ -5,7 +5,7 @@ const notif = require('./helpers/notification');
 
 const targets = {
   parlanode: 'parlanode',
-  // parlasite: 'parlasite',
+  parlasite: 'parlasite',
   // parlassets: 'parlassets'
 };
 
