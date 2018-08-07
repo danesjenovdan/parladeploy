@@ -51,5 +51,16 @@ module.exports = {
         NODE_ENV: 'production',
       },
     },
+    production_english: {
+      user: 'parlauser',
+      host: 'deploy.english.parlameter.si',
+      ref: 'origin/develop',
+      repo: `https://github.com/danesjenovdan/${project}.git`,
+      path: `${config.PROJECTS_DIR_PATH}/${project}`,
+      'post-deploy': `${command} --env production --update-env`,
+      env: {
+        NODE_ENV: 'production',
+      },
+    },
   },
 };
