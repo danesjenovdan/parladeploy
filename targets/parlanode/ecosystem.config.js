@@ -3,6 +3,7 @@ const config = require('../../config');
 const project = 'parlanode';
 const command = [
   // eslint-disable-next-line no-template-curly-in-string
+  'git submodule update --init --recursive --remote && ',
   'yarn && MONGO_USERNAME=${MONGO_USERNAME} MONGO_PASSWORD=${MONGO_PASSWORD} NODE_ICU_DATA=node_modules/full-icu',
   `pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/targets/${project}/ecosystem.config.js`,
 ].join(' ');
