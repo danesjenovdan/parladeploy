@@ -38,9 +38,9 @@ module.exports = {
       'post-deploy': `${command} --env production --update-env`,
       env: {
         NODE_ENV: 'production',
-        DEPLOY_BRANCH_parlanode: 'hr',
-        DEPLOY_BRANCH_parlasite: 'hr',
-        DEPLOY_BRANCH_parlassets: 'hr',
+        DEPLOY_BRANCH_PARLANODE: 'hr',
+        DEPLOY_BRANCH_PARLASITE: 'hr',
+        DEPLOY_BRANCH_PARLASSETS: 'hr',
       },
     },
     production_uk: {

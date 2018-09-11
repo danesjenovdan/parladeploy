@@ -33,13 +33,18 @@ exports.init = (app) => {
 
     const project = req.params.project;
 
+    // eslint-disable-next-line no-console
+    console.log('project:', project);
+
     if (!targets[project]) {
+      // eslint-disable-next-line no-console
+      console.log('wrong project');
       return res.status(404).send('wrong project');
     }
 
     let deployBranch;
 
-    const envDeployBranch = process.env[`DEPLOY_BRANCH_${project}`];
+    const envDeployBranch = process.env[`DEPLOY_BRANCH_${project.toUpperCase()}`];
     if (envDeployBranch) {
       deployBranch = envDeployBranch;
     } else {
@@ -54,6 +59,9 @@ exports.init = (app) => {
         deployBranch = env === 'production' ? 'master' : env;
       }
     }
+
+    // eslint-disable-next-line no-console
+    console.log('event branch:', deployBranch);
 
     if (!deployBranch || deployBranch !== branch) {
       return res.send('wrong branch');
