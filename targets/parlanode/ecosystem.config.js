@@ -2,11 +2,12 @@ const config = require('../../config');
 
 const project = 'parlanode';
 const command = [
-  // eslint-disable-next-line no-template-curly-in-string
   'git submodule update --init --recursive --remote && ',
+  // eslint-disable-next-line no-template-curly-in-string
   'yarn && MONGO_USERNAME=${MONGO_USERNAME} MONGO_PASSWORD=${MONGO_PASSWORD} NODE_ICU_DATA=node_modules/full-icu',
   `pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/targets/${project}/ecosystem.config.js`,
 ].join(' ');
+const branch = process.env[`DEPLOY_BRANCH_${project}`] || 'develop';
 
 module.exports = {
   /**
@@ -36,7 +37,7 @@ module.exports = {
     production: {
       user: 'parlauser',
       host: 'localhost',
-      ref: 'origin/develop', // TODO: change to production branch
+      ref: `origin/${branch}`,
       repo: `https://github.com/danesjenovdan/${project}.git`,
       path: `${config.PROJECTS_DIR_PATH}/${project}`,
       'post-deploy': `${command} --env production --update-env`,
@@ -47,7 +48,7 @@ module.exports = {
     staging: {
       user: 'parlauser',
       host: 'localhost',
-      ref: 'origin/develop', // TODO: change to staging branch
+      ref: `origin/${branch}`,
       repo: `https://github.com/danesjenovdan/${project}.git`,
       path: `${config.PROJECTS_DIR_PATH}/${project}`,
       'post-deploy': `${command} --env staging --update-env`,

@@ -6,7 +6,7 @@ const notif = require('./helpers/notification');
 const targets = {
   parlanode: 'parlanode',
   parlasite: 'parlasite',
-  // parlassets: 'parlassets'
+  parlassets: 'parlassets',
 };
 
 const env = process.env.NODE_ENV;
@@ -39,15 +39,20 @@ exports.init = (app) => {
 
     let deployBranch;
 
-    const ecosystemConfigPath = `./targets/${targets[project]}/ecosystem.config.js`;
-    if (fs.existsSync(ecosystemConfigPath)) {
-      // eslint-disable-next-line global-require, import/no-dynamic-require
-      const ecosystem = require(ecosystemConfigPath);
-      if (ecosystem.deploy && ecosystem.deploy[env] && ecosystem.deploy[env].ref) {
-        deployBranch = _.last(ecosystem.deploy[env].ref.split('/'));
-      }
+    const envDeployBranch = process.env[`DEPLOY_BRANCH_${project}`];
+    if (envDeployBranch) {
+      deployBranch = envDeployBranch;
     } else {
-      deployBranch = env === 'production' ? 'master' : env;
+      const ecosystemConfigPath = `./targets/${targets[project]}/ecosystem.config.js`;
+      if (fs.existsSync(ecosystemConfigPath)) {
+        // eslint-disable-next-line global-require, import/no-dynamic-require
+        const ecosystem = require(ecosystemConfigPath);
+        if (ecosystem.deploy && ecosystem.deploy[env] && ecosystem.deploy[env].ref) {
+          deployBranch = _.last(ecosystem.deploy[env].ref.split('/'));
+        }
+      } else {
+        deployBranch = env === 'production' ? 'master' : env;
+      }
     }
 
     if (!deployBranch || deployBranch !== branch) {

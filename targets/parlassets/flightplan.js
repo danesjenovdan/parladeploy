@@ -1,45 +1,42 @@
-const plan   = require('flightplan');
+const plan = require('flightplan');
 const config = require('../../config');
 
-/**
- * Configuration
- */
+const project = 'parlassets';
+const branch = process.env[`DEPLOY_BRANCH_${project}`] || 'master';
+
+// Configuration
 plan.target('production', {
-  host : 'localhost'
+  host: 'localhost',
 }, {
-  env : 'production'
+  env: 'production',
 });
 
 plan.target('staging', {
-  host : 'localhost'
+  host: 'localhost',
 }, {
-  env : 'staging'
+  env: 'staging',
 });
 
-/**
- * Deploy
- */
-plan.local(['deploy', 'default'], ( local ) => {
-
-  const enviroment = plan.runtime.options.env;
-
-  /**
-   * Create folders
-   */
+// Deploy
+plan.local(['deploy', 'default'], (local) => {
+  // Create folders
   local.log('Cloning repo');
-  local.exec(`cd /home/parladaddy/parlacdn/v1/parlassets; git pull;`)
 
-  local.log('Build for production');
-  local.exec('cd /home/parladaddy/parlacdn/v1/parlassets; yarn build;');
+  local.exec([
+    `cd ${config.PROJECTS_DIR_PATH}/${project}`,
+    'git fetch --depth=5 --all --tags',
+    `git reset --hard origin/${branch}`,
+  ].join('; '));
 
+  local.log('Building styles');
+  local.exec([
+    `cd ${config.PROJECTS_DIR_PATH}/${project}`,
+    'yarn && yarn sass',
+  ].join('; '));
 });
 
-/**
- * Revert Deployment
- */
+// Revert Deployment
 // MISSING!!!
 
-/**
- * Stop app
- */
+// Stop app
 // NOTHING TO STOP
