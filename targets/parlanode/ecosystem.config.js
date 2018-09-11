@@ -7,7 +7,7 @@ const command = [
   'yarn && MONGO_USERNAME=${MONGO_USERNAME} MONGO_PASSWORD=${MONGO_PASSWORD} NODE_ICU_DATA=node_modules/full-icu',
   `pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/targets/${project}/ecosystem.config.js`,
 ].join(' ');
-const branch = process.env[`DEPLOY_BRANCH_${project}`] || 'develop';
+const branch = process.env[`DEPLOY_BRANCH_${project.toUpperCase()}`] || 'develop';
 
 module.exports = {
   /**

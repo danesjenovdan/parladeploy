@@ -2,7 +2,7 @@ const plan = require('flightplan');
 const config = require('../../config');
 
 const project = 'parlassets';
-const branch = process.env[`DEPLOY_BRANCH_${project}`] || 'master';
+const branch = process.env[`DEPLOY_BRANCH_${project.toUpperCase()}`] || 'master';
 
 // Configuration
 plan.target('production', {
