@@ -19,6 +19,8 @@ plan.target('staging', {
 
 // Deploy
 plan.local(['deploy', 'default'], (local) => {
+  const enviroment = plan.runtime.options.env;
+
   // Create folders
   local.log('Cloning repo');
 
@@ -31,7 +33,7 @@ plan.local(['deploy', 'default'], (local) => {
   local.log('Building styles');
   local.exec([
     `cd ${config.PROJECTS_DIR_PATH}/${project}`,
-    'yarn && yarn sass',
+    `NODE_ENV=${enviroment} yarn && NODE_ENV=${enviroment} yarn sass`,
   ].join('; '));
 });
 
