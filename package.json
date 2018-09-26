@@ -10,6 +10,8 @@
     "deploy:uk": "cross-env NODE_ENV=production pm2 deploy production_uk",
     "deploy:english:setup": "cross-env NODE_ENV=production pm2 deploy production_english setup",
     "deploy:english": "cross-env NODE_ENV=production pm2 deploy production_english",
+    "deploy:staging:sl:setup": "cross-env NODE_ENV=production pm2 deploy staging_sl setup",
+    "deploy:staging:sl": "cross-env NODE_ENV=production pm2 deploy staging_sl",
     "parlanode:setup": "cross-env NODE_ENV=production pm2 deploy targets/parlanode/ecosystem.config.js production setup",
     "parlasite:setup": "cross-env NODE_ENV=production pm2 deploy targets/parlasite/ecosystem.config.js production setup"
   },

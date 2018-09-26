@@ -68,5 +68,19 @@ module.exports = {
         DEPLOY_BRANCH_PARLASSETS: 'sl',
       },
     },
+    staging_sl: {
+      user: 'parlauser',
+      host: 'deploy.majkemi.parlameter.si',
+      ref: 'origin/develop',
+      repo: `https://github.com/danesjenovdan/${project}.git`,
+      path: `${config.PROJECTS_DIR_PATH}/${project}`,
+      'post-deploy': `${command} --env production --update-env`,
+      env: {
+        NODE_ENV: 'production',
+        DEPLOY_BRANCH_PARLANODE: 'develop',
+        DEPLOY_BRANCH_PARLASITE: 'develop',
+        DEPLOY_BRANCH_PARLASSETS: 'sl',
+      },
+    },
   },
 };
