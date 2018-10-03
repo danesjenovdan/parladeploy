@@ -67,6 +67,8 @@ exports.init = (app) => {
       return res.send('wrong branch');
     }
 
+    res.send('correct branch; starting deploy');
+
     return new Promise((resolve, reject) => {
       const fly = spawn('./node_modules/.bin/fly', [`deploy:${env}`, '--flightplan', `targets/${targets[project]}/flightplan.js`]);
 
@@ -90,10 +92,8 @@ exports.init = (app) => {
         console.log('exit code:', code);
         if (code === 0) {
           notif.sendNotification(project, `Finished deploy: *${project}* on *${env}*`);
-          res.status(200).send(msg);
         } else {
           notif.sendNotification(project, msg);
-          res.status(400).send(msg);
         }
         resolve();
       });
@@ -101,7 +101,6 @@ exports.init = (app) => {
       .catch((err) => {
         // eslint-disable-next-line no-console
         console.error('Error: ', err);
-        res.status(400).send(err);
       });
   });
 
