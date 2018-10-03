@@ -31,7 +31,7 @@ module.exports = {
   deploy: {
     production_hr: {
       user: 'parlauser',
-      host: 'deploy.hr.parlameter.si',
+      host: 'deploy.parlametar.hr',
       ref: 'origin/develop',
       repo: `https://github.com/danesjenovdan/${project}.git`,
       path: `${config.PROJECTS_DIR_PATH}/${project}`,
@@ -43,15 +43,18 @@ module.exports = {
         DEPLOY_BRANCH_PARLASSETS: 'hr',
       },
     },
-    production_uk: {
+    production_pl: {
       user: 'parlauser',
-      host: 'deploy.uk.parlameter.si',
+      host: 'deploy.pl.parlameter.si',
       ref: 'origin/develop',
       repo: `https://github.com/danesjenovdan/${project}.git`,
       path: `${config.PROJECTS_DIR_PATH}/${project}`,
       'post-deploy': `${command} --env production --update-env`,
       env: {
         NODE_ENV: 'production',
+        DEPLOY_BRANCH_PARLANODE: 'pl',
+        DEPLOY_BRANCH_PARLASITE: 'pl',
+        DEPLOY_BRANCH_PARLASSETS: 'pl',
       },
     },
     production_english: {
