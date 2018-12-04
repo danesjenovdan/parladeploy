@@ -33,7 +33,7 @@ plan.local(['deploy', 'default'], (local) => {
   local.log('Building styles');
   local.exec([
     `cd ${config.PROJECTS_DIR_PATH}/${project}`,
-    `NODE_ENV=${enviroment} yarn && NODE_ENV=${enviroment} yarn sass`,
+    `NODE_ENV=${enviroment} npm install && NODE_ENV=${enviroment} npm run sass`,
   ].join('; '));
 });
 

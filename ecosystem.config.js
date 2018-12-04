@@ -3,7 +3,7 @@ const config = require('./config');
 const project = 'parladeploy';
 const command = [
   // eslint-disable-next-line no-template-curly-in-string
-  'yarn && MONGO_USERNAME=${MONGO_USERNAME} MONGO_PASSWORD=${MONGO_PASSWORD}',
+  'npm install && MONGO_USERNAME=${MONGO_USERNAME} MONGO_PASSWORD=${MONGO_PASSWORD}',
   'pm2 reload ecosystem.config.js',
 ].join(' ');
 

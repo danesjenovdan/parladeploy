@@ -2,7 +2,7 @@ const config = require('../../config');
 
 const project = 'parlasite';
 const command = [
-  `yarn && pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/targets/${project}/ecosystem.config.js`,
+  `npm install && pm2 startOrRestart ${config.DEPLOY_SCRIPT_PATH}/targets/${project}/ecosystem.config.js`,
 ].join(' ');
 const branch = process.env[`DEPLOY_BRANCH_${project.toUpperCase()}`] || 'develop';
 
